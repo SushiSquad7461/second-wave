@@ -21,5 +21,9 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         // If Gyro is upsidedown set to negative one
         public static final int GYRO_INVERSION = -1;
+        public static final int WHEEL_DIAMTER = 6; // inches
+    }
+    public static final class kOI {
+        public static final int DRIVE_CONTROLER = 0;
     }
 }

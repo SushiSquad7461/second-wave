@@ -29,6 +29,7 @@ public class Drivetrain extends SubsystemBase {
       kDrivetrain.CURRENT_LIMIT, NeutralMode.Coast, TalonFXInvertType.CounterClockwise);
   private final WPI_TalonFX backRight = MotorHelper.createFalconMotor(kDrivetrain.BACK_RIGHT_ID,
       kDrivetrain.CURRENT_LIMIT, NeutralMode.Coast, TalonFXInvertType.Clockwise);
+
   private final DifferentialDrive differentialDrive = new DifferentialDrive(frontLeft, frontRight);
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
   private final Field2d field = new Field2d();
@@ -40,6 +41,7 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
+
     SmartDashboard.putData("Field", field);
   }
   
@@ -53,19 +55,19 @@ public class Drivetrain extends SubsystemBase {
       zeroOffset = gyro.getYaw();
       calibrating = false;
     }
+
     odomotry.update(
-        new Rotation2d(Math.toRadians(Conversion.normalizeGyro(gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION)), 
-      Conversion.ticksToMeters(frontLeft.getSelectedSensorPosition(), 6), 
-      Conversion.ticksToMeters(frontRight.getSelectedSensorPosition(), 6)
+      new Rotation2d(Math.toRadians(Conversion.normalizeGyro(gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION)), 
+      Conversion.ticksToMeters(frontLeft.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER), 
+      Conversion.ticksToMeters(frontRight.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER)
     );
+
     field.setRobotPose(odomotry.getPoseMeters());
-    SmartDashboard.putNumber("heading: ", Conversion.normalizeGyro(gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION);
+    SmartDashboard.putNumber("heading ", Conversion.normalizeGyro(gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION);
     SmartDashboard.putNumber("odometry x", odomotry.getPoseMeters().getX());
     SmartDashboard.putNumber("odometry y", odomotry.getPoseMeters().getY());
   }
 
   @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
+  public void simulationPeriodic() { }
 }
