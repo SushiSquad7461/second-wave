@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.kDrivetrain;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
@@ -70,4 +72,53 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void simulationPeriodic() { }
+
+  public Pose2d getPose() {
+    return odomotry.getPoseMeters();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(Conversion.ticksToMeters(frontLeft.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER), Conversion.ticksToMeters(frontLeft.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER));
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    odomotry.resetPosition(pose, gyro.getRotation2d());
+  }
+
+  public void arcadeDrive(double fwd, double rot) {
+    differentialDrive.arcadeDrive(fwd, rot);
+  }
+
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    frontLeft.setVoltage(leftVolts);
+    frontRight.setVoltage(rightVolts);
+    differentialDrive.feed();
+  }
+
+  public void resetEncoders() {
+    frontLeft.setSelectedSensorPosition(0);
+    frontRight.setSelectedSensorPosition(0);
+  }
+
+  public double getAverageEncoderDistance() {
+    return (Conversion.ticksToMeters(frontLeft.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER) + Conversion.ticksToMeters(frontRight.getSelectedSensorPosition(), kDrivetrain.WHEEL_DIAMTER)) / 2.0;
+  }
+
+  public void setMaxOutput(double maxOutput) {
+    differentialDrive.setMaxOutput(maxOutput);
+  }
+
+  public void zeroHeading() {
+    gyro.getYaw();
+  }
+
+
+  public double getHeading() {
+    return Conversion.normalizeGyro((gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION);
+  }
+
+  public double getTurnRate() {
+    return gyro.getRate();
+  }
 }

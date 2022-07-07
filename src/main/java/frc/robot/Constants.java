@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -22,6 +24,15 @@ public final class Constants {
         // If Gyro is upsidedown set to negative one
         public static final int GYRO_INVERSION = -1;
         public static final int WHEEL_DIAMTER = 6; // inches
+        public static double kaVoltSecondsSquaredPerMeter = 0.094246;
+        public static double kvVoltSecondsPerMeter = 0.79639;
+        public static double ksVolts = 0.094246;
+        public static DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(0.69);
+        public static double kMaxAccelerationMetersPerSecondSquared = 12.62;
+        public static double kMaxSpeedMetersPerSecond = 4.92126;
+        public static double kPDriveVel = 0.01;
+        public static double kRamseteB = 0.001;
+        public static double kRamseteZeta = 0.001;
     }
     public static final class kOI {
         public static final int DRIVE_CONTROLER = 0;
