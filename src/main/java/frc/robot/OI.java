@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class OI {
     public static double getTriggers(XboxController controller) {
-        return Math.pow(controller.getLeftTriggerAxis()-controller.getRightTriggerAxis(), 3);
+        return Math.pow(controller.getRightTriggerAxis()-controller.getLeftTriggerAxis(), 3);
     }
 
     public static double getLeftAxis(XboxController controller) {
@@ -12,6 +12,6 @@ public class OI {
     }
 
     public static double getRightAxis(XboxController controller) {
-        return Math.pow(controller.getRightY(), 3);
+        return Math.pow(-controller.getRightY(), 3);
     }
 }

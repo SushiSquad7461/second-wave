@@ -15,24 +15,27 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final boolean TUNING_MODE = true;
     public static final class kDrivetrain {
-        public static final int FRONT_LEFT_ID = 3;
-        public static final int FRONT_RIGHT_ID = 16;
-        public static final int BACK_LEFT_ID = 4;
-        public static final int BACK_RIGHT_ID = 15;
+        public static final int FRONT_LEFT_ID = 15;
+        public static final int FRONT_RIGHT_ID = 4;
+        public static final int BACK_LEFT_ID = 16;
+        public static final int BACK_RIGHT_ID = 3;
         public static final int CURRENT_LIMIT = 30;
         // If Gyro is upsidedown set to negative one
-        public static final int GYRO_INVERSION = -1;
+        public static final int GYRO_INVERSION = 1;
         public static final int WHEEL_DIAMTER = 6; // inches
         public static double kaVoltSecondsSquaredPerMeter = 0.094246;
         public static double kvVoltSecondsPerMeter = 0.79639;
         public static double ksVolts = 0.094246;
         public static DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(0.69);
-        public static double kMaxAccelerationMetersPerSecondSquared = 12.62;
+        public static double kMaxAccelerationMetersPerSecondSquared = 1;
         public static double kMaxSpeedMetersPerSecond = 4.92126;
-        public static double kPDriveVel = 0.01;
-        public static double kRamseteB = 0.001;
-        public static double kRamseteZeta = 0.001;
+        public static double kPDriveVel = 0.00001;
+        public static double kIDriveVel = 0;
+        public static double kDDriveVel = 0;
+        public static double kRamseteB = 2;
+        public static double kRamseteZeta = 0.7;
     }
     public static final class kOI {
         public static final int DRIVE_CONTROLER = 0;

@@ -66,6 +66,7 @@ public class Drivetrain extends SubsystemBase {
 
     field.setRobotPose(odomotry.getPoseMeters());
     SmartDashboard.putNumber("heading ", Conversion.normalizeGyro(gyro.getYaw() - zeroOffset) * kDrivetrain.GYRO_INVERSION);
+    SmartDashboard.putNumber("velocity", Conversion.ticksToMeters(frontLeft.getSelectedSensorVelocity(), kDrivetrain.WHEEL_DIAMTER));
     SmartDashboard.putNumber("odometry x", odomotry.getPoseMeters().getX());
     SmartDashboard.putNumber("odometry y", odomotry.getPoseMeters().getY());
   }
